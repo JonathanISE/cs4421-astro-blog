@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title>Alex Morgan</title>
+  <rect width="160" height="160" rx="80" fill="#d9e6df"/>
+  <circle cx="80" cy="62" r="29" fill="#233b36"/>
+  <path d="M31 143c5-31 23-48 49-48s44 17 49 48" fill="#233b36"/>
+  <path d="M54 61c4 5 9 8 15 8s11-3 15-8" fill="none" stroke="#d9e6df" stroke-linecap="round" stroke-width="5"/>
+</svg>

@@ -8,7 +8,11 @@ import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+type Author = CollectionEntry<'authors'>['data'];
+
+type BlogPostProps = Props & { author: Author };
+
+const { title, description, pubDate, updatedDate, heroImage, author } = Astro.props as BlogPostProps;
 ---
 
 <html lang="en">
@@ -35,6 +39,34 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
+			}
+			.author-profile {
+				border-top: 1px solid rgb(var(--gray-light));
+				margin-top: 3em;
+				padding-top: 2em;
+				display: grid;
+				grid-template-columns: 80px 1fr;
+				gap: 1em;
+			}
+			.author-avatar {
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+			}
+			.author-name {
+				margin-bottom: 0.25em;
+				font-size: 1.25em;
+			}
+			.author-bio {
+				margin: 0 0 0.5em;
+			}
+			.author-social-links {
+				display: flex;
+				gap: 1em;
+				flex-wrap: wrap;
+			}
+			.author-social-links a {
+				font-size: 0.9em;
 			}
 			.title {
 				margin-bottom: 1em;
@@ -78,6 +110,16 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						<hr />
 					</div>
 					<slot />
+					<section class="author-profile" aria-labelledby="author-heading">
+						<img class="author-avatar" src={author.avatar} alt={`Avatar of ${author.name}`} />
+						<div>
+							<h2 class="author-name" id="author-heading">About {author.name}</h2>
+							<p class="author-bio">{author.bio}</p>
+							<nav class="author-social-links" aria-label={`${author.name}'s social links`}>
+								{author.socialLinks.map((link) => <a href={link.url}>{link.label}</a>)}
+							</nav>
+						</div>
+					</section>
 				</div>
 			</article>
 		</main>
