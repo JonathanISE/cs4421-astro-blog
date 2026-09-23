@@ -1,0 +1,11 @@
+[33mcommit d50a84939abb33fc1205293c08352f9429e6248e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32m1-author-biography-on-blog-posts[m[33m, [m[1;31morigin/1-author-biography-on-blog-posts[m[33m)[m
+Author: Jonathan Murphy <26368978@studentmail.ul.ie>
+Date:   Wed Sep 16 10:37:53 2026 +0100
+
+    feat: Added blog author profiles and biographys
+
+[33mcommit 904bb27cb8a46bfe395640630b11488264ee5882[m[33m ([m[1;32mmain[m[33m)[m
+Author: Jonathan Murphy <26368978@studentmail.ul.ie>
+Date:   Wed Sep 9 17:26:54 2026 +0100
+
+    feat: initial scaffold of Astro blog platform
