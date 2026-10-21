@@ -60,6 +60,8 @@ const { books, genres } = Astro.props;
 		--base-height: clamp(1.75rem, 3vw, 2.5rem);
 		--case-border: clamp(0.55rem, 1.5vw, 1rem);
 		--rail-height: 1.45rem;
+		--sign-hang: 0.4rem;
+		--string-length: 0.4rem;
 		padding: var(--case-padding-block) var(--case-padding-inline) var(--base-height);
 		border: var(--case-border) solid #693b27;
 		border-radius: 0.35rem;
@@ -125,12 +127,20 @@ const { books, genres } = Astro.props;
 		background: transparent;
 	}
 	.shelf:first-child {
-		--sign-board-gap: var(--case-padding-block);
+		--sign-board-distance: var(--case-padding-block);
+		--sign-board-bottom: 0.2rem;
 	}
 	.genre-sign-holder {
 		position: absolute;
-		/* Each sign is anchored to the board above its shelf; the first shelf reaches the top trim through the same anchor rule. */
-		top: calc(-1 * var(--sign-board-gap, var(--shelf-gap)) + 0.4rem);
+		/*
+		 * Every sign hangs by the same gap and strings; only the first shelf
+		 * measures its separate top trim from the trim's bottom edge.
+		 */
+		top: calc(
+			-1 * var(--sign-board-distance, var(--shelf-gap)) +
+			var(--sign-board-bottom, 0rem) +
+			var(--sign-hang)
+		);
 		left: 1rem;
 		z-index: 4;
 		width: min(9rem, 32%);
@@ -140,7 +150,7 @@ const { books, genres } = Astro.props;
 		position: absolute;
 		top: -0.4rem;
 		width: 1px;
-		height: 0.4rem;
+		height: var(--string-length);
 		z-index: -1;
 		background: #b88b5e;
 		content: '';

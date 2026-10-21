@@ -1,13 +1,25 @@
 import * as cdk from 'aws-cdk-lib';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as ecsPatterns from 'aws-cdk-lib/aws-ecs-patterns';
+import * as logs from 'aws-cdk-lib/aws-logs';
+
 
 export class EcrStack extends cdk.Stack {
+  public readonly repository: ecr.Repository;
+
+
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const repository = new ecr.Repository(this, 'AstroRepository', {
+    this.repository = new ecr.Repository(this, 'AstroRepository', {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+
+    new cdk.CfnOutput(this, 'RepositoryUri', {
+      value: this.repository.repositoryUri,
     });
 
   }
