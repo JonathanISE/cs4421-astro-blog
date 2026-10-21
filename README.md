@@ -1,4 +1,4 @@
-# Astro Starter Kit: Blog
+# Captain's Log
 
 ```sh
 npm create astro@latest -- --template blog
