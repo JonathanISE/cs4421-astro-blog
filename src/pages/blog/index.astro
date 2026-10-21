@@ -89,7 +89,8 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-			<section>
+			<section aria-labelledby="logbook-title">
+				<h1 id="logbook-title">The logbook</h1>
 				<ul>
 					{
 						posts.map((post) => (

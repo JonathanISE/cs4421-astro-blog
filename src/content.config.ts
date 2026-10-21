@@ -18,7 +18,26 @@ const blog = defineCollection({
 		}),
 });
 
-	const authors = defineCollection({
+const books = defineCollection({
+	loader: glob({ base: './src/content/books', pattern: '**/*.md' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			author: z.string(),
+			description: z.string(),
+			genre: z.enum(['Fiction', 'Non-fiction', 'Fantasy']),
+			reviewUrl: z.string(),
+			cover: image(),
+			chapters: z.array(
+				z.object({
+					title: z.string(),
+					summary: z.string().optional(),
+				}),
+			).optional(),
+		}),
+});
+
+const authors = defineCollection({
 		loader: glob({ base: './src/content/authors', pattern: '**/*.md' }),
 		schema: z.object({
 			name: z.string(),
@@ -31,6 +50,6 @@ const blog = defineCollection({
 				}),
 			),
 		}),
-	});
+});
 
-	export const collections = { blog, authors };
+export const collections = { blog, books, authors };

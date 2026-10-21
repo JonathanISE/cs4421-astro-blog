@@ -1,48 +1,68 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
+import Bookcase from '../components/Bookcase.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const books = (await getCollection('books')).map(({ data }) => data);
+const genres = ['Fiction', 'Non-fiction', 'Fantasy'] as const;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: min(100% - 2rem, 1180px);
+				box-sizing: border-box;
+				margin: 0 auto;
+				padding: clamp(3.5rem, 8vw, 7rem) 0 clamp(5rem, 10vw, 9rem);
+			}
+			:global(body) {
+				background:
+					radial-gradient(circle at 50% 0, rgba(255, 248, 232, 0.7), transparent 40rem),
+					#e8d4b8;
+			}
+			.intro {
+				max-width: 620px;
+				margin: 0 auto 3.5rem;
+				text-align: center;
+			}
+			.eyebrow {
+				margin: 0 0 0.75rem;
+				color: #28533d;
+				font-size: 0.78rem;
+				font-weight: 700;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+			}
+			.intro h1 {
+				margin-bottom: 1rem;
+				color: #3e241b;
+				font-family: Cinzel, 'Trajan Pro', Georgia, 'Times New Roman', serif;
+				font-size: clamp(2.5rem, 7vw, 4.8rem);
+				font-variant: small-caps;
+				letter-spacing: -0.045em;
+			}
+			.intro p {
+				margin: 0;
+				color: #73584c;
+				font-size: clamp(1rem, 2vw, 1.15rem);
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>Welcom, ISE Student!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="intro" aria-labelledby="page-title">
+				<p class="eyebrow">A well-kept captain's log</p>
+				<h1 id="page-title">The captain's cabin</h1>
+				<p>Stories, ideas, and discoveries charted for the next voyage.</p>
+			</section>
+			<Bookcase books={books} genres={genres} />
 		</main>
 		<Footer />
 	</body>
