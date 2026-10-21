@@ -23,3 +23,9 @@ new StaticSiteStack(app, 'StaticSiteStack', {
 new EcrStack(app, 'EcrStack', {
   env: { account: '429496639425', region: 'us-east-1' },
 });
+
+new EcsStack(app, 'EcsStack', {
+  env: { account: '818811142195', region: 'us-east-1' },
+  repository: ecrStack.repository,
+  certificateArn: app.node.tryGetContext('certificateArn'),
+});

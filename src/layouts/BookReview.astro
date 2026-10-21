@@ -1,0 +1,277 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+type Review = CollectionEntry<'books'>['data'];
+
+const {
+	title,
+	author,
+	cover,
+	rating,
+	readScore,
+	reviewText,
+	quotes,
+	favouriteCharacter,
+} = Astro.props as Review;
+const { googleCover } = Astro.props as { googleCover?: string };
+const coverUrl = cover?.src ?? googleCover;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} review`} description={reviewText} image={cover} />
+		<style>
+			.review-page {
+				background: #eadcc5;
+				color: #3c2a20;
+				font-family: Georgia, 'Times New Roman', serif;
+			}
+			.review-page main {
+				width: min(100% - 2rem, 1180px);
+				margin: 0 auto;
+				padding: clamp(3rem, 8vw, 6rem) 0;
+			}
+			.review-page .review {
+				position: relative;
+				padding: clamp(1.5rem, 5vw, 4rem);
+				border: 1px solid #c49a64;
+				border-radius: 0.35rem;
+				background:
+					linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent 40%),
+					#f8f0df;
+				box-shadow: 0 1rem 2.5rem rgba(91, 55, 29, 0.18);
+			}
+			.review-page .review-top {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				align-items: center;
+				gap: clamp(2rem, 7vw, 5rem);
+				margin-bottom: 0;
+			}
+			.review-page .review-intro {
+				min-width: 0;
+			}
+			.review-page .cover {
+				order: 2;
+				width: min(100%, 20rem);
+				justify-self: center;
+				border: 0.45rem solid #c49a64;
+				background: #d8c09c;
+				box-shadow: 0 0.8rem 1.5rem rgba(91, 55, 29, 0.22);
+			}
+			.review-page .cover img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			.review-page .cover-fallback {
+				display: grid;
+				aspect-ratio: 2 / 3;
+				place-content: center;
+				gap: 0.75rem;
+				padding: 1.5rem;
+				box-sizing: border-box;
+				color: #4a2d1d;
+				text-align: center;
+			}
+			.review-page .cover-fallback strong {
+				font-size: clamp(1.3rem, 4vw, 2rem);
+			}
+			.review-page h1,
+			.review-page h2 {
+				color: #70452c;
+				font-family: Georgia, 'Times New Roman', serif;
+				line-height: 1.2;
+			}
+			.review-page h1 {
+				margin: 0 0 0.4rem;
+				font-size: clamp(2.2rem, 6vw, 4.5rem);
+				text-align: center;
+			}
+			.review-page .author {
+				margin: 0 0 2rem;
+				color: #795943;
+				font-family: Georgia, serif;
+				font-size: 1.2rem;
+			}
+			.review-page .scores {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+				gap: 1rem;
+				margin: 0;
+			}
+			.review-page .score {
+				padding: 1rem;
+				border: 1px solid #d2b486;
+				border-radius: 0.25rem;
+				background: #f1e2c8;
+				text-align: center;
+			}
+			.review-page .score-label {
+				display: block;
+				margin-bottom: 0.25rem;
+				color: #795943;
+				font-size: 0.75rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+			.review-page .score-value {
+				color: #a76527;
+				font-size: 1.4rem;
+				font-weight: 700;
+			}
+			.review-page .read-score {
+				font-size: 1.05rem;
+			}
+			.review-page .read-score[data-score='Skip'] {
+				color: #80685a;
+			}
+			.review-page .read-score[data-score='If you have time'] {
+				color: #8b7040;
+			}
+			.review-page .read-score[data-score='Worth Reading'] {
+				color: #a76527;
+			}
+			.review-page .read-score[data-score='Must Read'] {
+				color: #8f4b2f;
+			}
+			.review-page .review-divider {
+				margin: clamp(2.5rem, 6vw, 4rem) 0;
+				border: 0;
+				border-top: 1px solid #c49a64;
+				opacity: 0.7;
+			}
+			.review-page .review-text {
+				width: 100%;
+				max-width: 72rem;
+				margin: 0;
+				line-height: 1.85;
+				white-space: pre-line;
+			}
+			.review-page section {
+				margin-top: 2.5rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid #d2b486;
+			}
+			.review-page h2 {
+				margin: 0 0 0.8rem;
+				font-size: clamp(1.4rem, 3vw, 2rem);
+			}
+			.review-page .quotes {
+				display: grid;
+				gap: 1rem;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.review-page blockquote {
+				margin: 0;
+				padding: 0.75rem 1rem;
+				border-left: 3px solid #c98b45;
+				color: #5b4030;
+				font-family: Georgia, serif;
+				font-size: 1rem;
+				font-style: italic;
+			}
+			.review-page .favourite {
+				margin: 0;
+			}
+			.review-page .back-to-shelves {
+				display: inline-block;
+				margin-top: clamp(2.5rem, 6vw, 4rem);
+				padding: 0.7rem 1rem;
+				border: 1px solid #b67b3d;
+				border-radius: 0.25rem;
+				background: #f1e2c8;
+				color: #70452c;
+				font-family: Georgia, serif;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.review-page .back-to-shelves:hover {
+				background: #e8d2ae;
+			}
+			.review-page .back-to-shelves:focus-visible {
+				outline: 3px solid #c98b45;
+				outline-offset: 3px;
+			}
+			@media (max-width: 500px) {
+				.review-page .review-top {
+					grid-template-columns: 1fr;
+					gap: 2rem;
+				}
+				.review-page .cover {
+					order: 1;
+					width: min(100%, 16rem);
+				}
+				.review-page .review-intro {
+					order: 2;
+				}
+				.review-page h1 {
+					text-align: center;
+				}
+				.review-page .author {
+					text-align: center;
+				}
+				.review-page .scores {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body class="review-page">
+		<Header />
+		<main>
+			<article class="review">
+				<div class="review-top">
+					<div class="review-intro">
+						<h1>{title}</h1>
+						<p class="author">by {author}</p>
+						<div class="scores" aria-label="Book scores">
+							<div class="score">
+								<span class="score-label">Rating</span>
+								<span class="score-value">{rating}/5</span>
+							</div>
+							<div class="score">
+								<span class="score-label">Read score</span>
+								<span class="score-value read-score" data-score={readScore}>{readScore}</span>
+							</div>
+						</div>
+					</div>
+					<div class="cover">
+						{coverUrl ? (
+							<img src={coverUrl} alt={`Cover of ${title}`} />
+						) : (
+							<div class="cover-fallback" role="img" aria-label={`Placeholder cover for ${title} by ${author}`}>
+								<strong>{title}</strong>
+								<span>{author}</span>
+							</div>
+						)}
+					</div>
+				</div>
+				<hr class="review-divider" />
+				<p class="review-text">{reviewText}</p>
+				{quotes && quotes.length > 0 && (
+					<section aria-labelledby="quotes-heading">
+						<h2 id="quotes-heading">Favourite quotes</h2>
+						<ul class="quotes">
+							{quotes.map((quote) => <li><blockquote>{quote}</blockquote></li>)}
+						</ul>
+					</section>
+				)}
+				{favouriteCharacter && (
+					<section aria-labelledby="character-heading">
+						<h2 id="character-heading">Favourite character</h2>
+						<p class="favourite">{favouriteCharacter}</p>
+					</section>
+				)}
+				<a class="back-to-shelves" href="/#shelves">Back to shelves</a>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

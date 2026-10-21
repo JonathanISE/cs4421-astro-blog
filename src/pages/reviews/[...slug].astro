@@ -1,0 +1,26 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BookReview from '../../layouts/BookReview.astro';
+import { findGoogleBooksCover } from '../../utils/googleBooks';
+
+export async function getStaticPaths() {
+	const reviews = await getCollection('books');
+	return Promise.all(
+		reviews.map(async (review) => ({
+			params: { slug: review.id },
+			props: {
+				review,
+				googleCover: review.data.cover ? undefined : await findGoogleBooksCover(review.data),
+			},
+		})),
+	);
+}
+
+type Props = {
+	review: CollectionEntry<'books'>;
+	googleCover?: string;
+};
+const { review, googleCover } = Astro.props as Props;
+---
+
+<BookReview {...review.data} googleCover={googleCover} />

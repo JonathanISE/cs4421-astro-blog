@@ -1,13 +1,16 @@
 ---
 title: Why Nations Fail
 author: Acemoglu & Robinson
-description: An exploration of how inclusive and extractive institutions shape the success of nations.
-genre: Non-fiction
-reviewUrl: /blog/why-nations-fail/
+genre: Non-Fiction
+isbn: '9780307719225'
 cover: ../../assets/why-nations-fail.jpg
-chapters:
-  - title: Institutions
-    summary: How political and economic institutions shape incentives.
-  - title: Critical junctures
-    summary: Why moments of upheaval can change a nation's trajectory.
+rating: 4
+readScore: Worth Reading
+reviewDate: 2024-01-15
+reviewText: |
+  Why Nations Fail is a compelling explanation of how inclusive and extractive institutions shape the success of nations. Its central argument is ambitious, and the historical examples make the ideas approachable.
+quotes:
+  - "The differences between countries are not caused by geography, culture, or ignorance."
+  - "Institutions are the humanly devised constraints that structure political, economic, and social interaction."
+favouriteCharacter: Daron Acemoglu
 ---

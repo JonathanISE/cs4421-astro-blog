@@ -1,37 +1,43 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-type Book = CollectionEntry<'books'>['data'];
+type Book = CollectionEntry<'books'>;
 
 type Props = {
 	books: Book[];
-	genres: readonly Book['genre'][];
+	genres: readonly Book['data']['genre'][];
 };
 
 const { books, genres } = Astro.props;
 ---
 
-<section class="bookcase" aria-label="The bookcase">
+<section id="shelves" class="bookcase" aria-label="The bookcase">
 	<div class="shelves" aria-label="Bookcase shelves">
 		{genres.map((genre) => {
-			const shelfBooks = books.filter((book) => book.genre === genre);
+			const shelfBooks = books.filter((book) => book.data.genre === genre);
 			return (
-				<div class:list={['shelf', genre === 'Non-fiction' && 'non-fiction-shelf']}>
-					{genre !== 'Fiction' && (
-						<span class="genre-sign-holder"><span class="genre-sign">{genre}</span></span>
-					)}
+				<div class="shelf">
+					<span class="genre-sign-holder"><span class="genre-sign">{genre}</span></span>
 					{shelfBooks.length === 0 ? (
 						<p class="empty-message">A new shelf waiting to be filled</p>
 					) : (
 						shelfBooks.map((book) => (
-							<a class="book-card" href={book.reviewUrl} aria-label={`Read the review of ${book.title}`}>
+							<a
+								class="book-card"
+								href={`/reviews/${book.id}/`}
+								aria-label={`Read the review of ${book.data.title}`}
+							>
 								<span class="book-object">
 									<span class="book-spine">
-										<span class="book-spine-author">{book.author}</span>
-										<span>{book.title}</span>
+										<span class="book-spine-author">{book.data.author}</span>
+										<span>{book.data.title}</span>
 									</span>
 									<span class="book-cover" aria-hidden="true">
-										<img src={book.cover.src} alt={`${book.title} book cover`} />
+										{book.data.cover ? (
+											<img src={book.data.cover.src} alt={`${book.data.title} book cover`} />
+										) : (
+											<span class="book-cover-fallback">{book.data.title}</span>
+										)}
 									</span>
 								</span>
 							</a>
@@ -41,9 +47,6 @@ const { books, genres } = Astro.props;
 			);
 		})}
 	</div>
-	<span class="genre-sign-holder top-genre-sign">
-		<span class="genre-sign">Fiction</span>
-	</span>
 </section>
 
 <style>
@@ -121,9 +124,13 @@ const { books, genres } = Astro.props;
 		box-sizing: border-box;
 		background: transparent;
 	}
+	.shelf:first-child {
+		--sign-board-gap: var(--case-padding-block);
+	}
 	.genre-sign-holder {
 		position: absolute;
-		top: calc(-1 * var(--shelf-gap) + 0.4rem);
+		/* Each sign is anchored to the board above its shelf; the first shelf reaches the top trim through the same anchor rule. */
+		top: calc(-1 * var(--sign-board-gap, var(--shelf-gap)) + 0.4rem);
 		left: 1rem;
 		z-index: 4;
 		width: min(9rem, 32%);
@@ -141,10 +148,6 @@ const { books, genres } = Astro.props;
 	}
 	.genre-sign-holder::before { left: 0.55rem; }
 	.genre-sign-holder::after { right: 0.8rem; }
-	.top-genre-sign {
-		top: calc(-1.25rem + var(--rail-height) + 0.4rem);
-		left: 1rem;
-	}
 	.genre-sign {
 		position: relative;
 		z-index: 1;

@@ -20,7 +20,7 @@ import HeaderLink from './HeaderLink.astro';
 <style>
 	header {
 		position: relative;
-		padding: 0.8rem 1rem;
+		padding: 0.8rem clamp(1rem, 3vw, 2.5rem);
 		background:
 			repeating-linear-gradient(0deg, rgba(255, 221, 145, 0.04) 0 1px, transparent 1px 0.75rem),
 			linear-gradient(180deg, #3a2419, #21130e);
@@ -38,11 +38,11 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	nav {
 		display: flex;
-		max-width: 1180px;
+		width: 100%;
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		margin: 0 auto;
+		flex-wrap: wrap;
 	}
 	.brand {
 		display: inline-flex;
@@ -73,6 +73,7 @@ import HeaderLink from './HeaderLink.astro';
 		flex-wrap: wrap;
 		justify-content: flex-end;
 		gap: 0.45rem;
+		margin-left: auto;
 	}
 	nav a:not(.brand) {
 		padding: 0.4rem 0.75rem;
@@ -93,8 +94,13 @@ import HeaderLink from './HeaderLink.astro';
 		filter: brightness(1.15);
 	}
 	@media (max-width: 650px) {
-		nav { align-items: flex-start; flex-direction: column; }
-		.internal-links { justify-content: flex-start; }
+		nav { gap: 0.75rem; }
 		nav a:not(.brand) { padding: 0.35rem 0.55rem; font-size: 0.76rem; }
+	}
+	@media (max-width: 420px) {
+		.internal-links {
+			width: 100%;
+			justify-content: flex-end;
+		}
 	}
 </style>
