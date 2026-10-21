@@ -39,7 +39,7 @@ function handler(event) {
     });
 
     new s3deploy.BucketDeployment(this, 'DeploySite', {
-      sources: [s3deploy.Source.asset('./../dist')],
+      sources: [s3deploy.Source.asset('./../dist/client')],
       destinationBucket: siteBucket,
       distribution,
       distributionPaths: ['/*'], // Automatic CloudFront CDN cache invalidation!
