@@ -4,8 +4,8 @@ author: Acemoglu & Robinson
 genre: Non-Fiction
 isbn: '9780307719225'
 cover: ../../assets/why-nations-fail.jpg
-rating: 4
-readScore: Worth Reading
+rating: 5
+readScore: Must Read
 reviewDate: 2024-01-15
 reviewText: |
   Why Nations Fail is a compelling explanation of how inclusive and extractive institutions shape the success of nations. Its central argument is ambitious, and the historical examples make the ideas approachable.
