@@ -12,5 +12,6 @@ reviewText: |
 quotes:
   - "The differences between countries are not caused by geography, culture, or ignorance."
   - "Institutions are the humanly devised constraints that structure political, economic, and social interaction."
+  - "The most common reason why nations fail today is because they have extractive institutions."
 favouriteCharacter: Daron Acemoglu
 ---

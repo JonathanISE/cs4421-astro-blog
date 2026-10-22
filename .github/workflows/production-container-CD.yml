@@ -26,3 +26,12 @@ jobs:
           IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           docker build -t "$IMAGE_URI" .
           docker push "$IMAGE_URI"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Deploy to ECS
+        working-directory: cdk
+        run: |
+          npm ci
+          npx cdk deploy EcsStack --require-approval never --parameters EcsStack:ImageTag=${{ github.sha }}
