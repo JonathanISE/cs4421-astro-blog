@@ -24,16 +24,15 @@ const books = defineCollection({
 		z.object({
 			title: z.string(),
 			author: z.string(),
-			description: z.string(),
-			genre: z.enum(['Fiction', 'Non-fiction', 'Fantasy']),
-			reviewUrl: z.string(),
-			cover: image(),
-			chapters: z.array(
-				z.object({
-					title: z.string(),
-					summary: z.string().optional(),
-				}),
-			).optional(),
+			genre: z.enum(['Fiction', 'Non-Fiction', 'Fantasy']),
+			isbn: z.string().optional(),
+			cover: image().optional(),
+			rating: z.number().min(0).max(5),
+			readScore: z.enum(['Skip', 'If you have time', 'Worth Reading', 'Must Read']),
+			reviewText: z.string().min(1),
+			reviewDate: z.coerce.date(),
+			quotes: z.array(z.string()).max(10).optional(),
+			favouriteCharacter: z.string().optional(),
 		}),
 });
 

@@ -6,8 +6,10 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const books = (await getCollection('books')).map(({ data }) => data);
-const genres = ['Fiction', 'Non-fiction', 'Fantasy'] as const;
+const books = (await getCollection('books')).sort(
+	(first, second) => first.data.reviewDate.getTime() - second.data.reviewDate.getTime(),
+);
+const genres = ['Fiction', 'Non-Fiction', 'Fantasy'] as const;
 ---
 
 <!doctype html>
