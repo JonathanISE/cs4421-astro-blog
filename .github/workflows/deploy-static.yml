@@ -29,7 +29,7 @@
 #       - name: Build Astro Static Site
 #         run: npm run build
 #         env:
-#           GOOGLE_BOOKS_API: ${{ secrets.GOOGLE_BOOKS_API }}
+#           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
       
 #       - name: Configure AWS Credentials
 #         uses: aws-actions/configure-aws-credentials@v6

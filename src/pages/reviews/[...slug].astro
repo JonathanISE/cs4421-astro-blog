@@ -5,15 +5,21 @@ import { findGoogleBooksCover } from '../../utils/googleBooks';
 
 export async function getStaticPaths() {
 	const reviews = await getCollection('books');
-	return Promise.all(
-		reviews.map(async (review) => ({
+	const paths = [];
+	for (const review of reviews) {
+		const googleCover = review.data.cover ? undefined : await findGoogleBooksCover(review.data);
+		if (review.data.cover) {
+			console.warn(`[book cover] title="${review.data.title}" ISBN="${review.data.isbn ?? '(none)'}" source=manual`);
+		}
+		paths.push({
 			params: { slug: review.id },
 			props: {
 				review,
-				googleCover: review.data.cover ? undefined : await findGoogleBooksCover(review.data),
+				googleCover,
 			},
-		})),
-	);
+		});
+	}
+	return paths;
 }
 
 type Props = {
