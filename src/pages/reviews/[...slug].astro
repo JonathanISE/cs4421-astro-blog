@@ -1,21 +1,18 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BookReview from '../../layouts/BookReview.astro';
-import { findGoogleBooksCover } from '../../utils/googleBooks';
+import { getBookCover } from '../../utils/googleBooks';
 
 export async function getStaticPaths() {
 	const reviews = await getCollection('books');
 	const paths = [];
 	for (const review of reviews) {
-		const googleCover = review.data.cover ? undefined : await findGoogleBooksCover(review.data);
-		if (review.data.cover) {
-			console.warn(`[book cover] title="${review.data.title}" ISBN="${review.data.isbn ?? '(none)'}" source=manual`);
-		}
+		const coverUrl = await getBookCover(review.data);
 		paths.push({
 			params: { slug: review.id },
 			props: {
 				review,
-				googleCover,
+				coverUrl,
 			},
 		});
 	}
@@ -24,9 +21,9 @@ export async function getStaticPaths() {
 
 type Props = {
 	review: CollectionEntry<'books'>;
-	googleCover?: string;
+	coverUrl?: string;
 };
-const { review, googleCover } = Astro.props as Props;
+const { review, coverUrl } = Astro.props as Props;
 ---
 
-<BookReview {...review.data} googleCover={googleCover} />
+<BookReview {...review.data} googleCover={coverUrl} />

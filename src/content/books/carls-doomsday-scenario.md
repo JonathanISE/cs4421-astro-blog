@@ -2,7 +2,7 @@
 title: Carl's Doomsday Scenario
 author: Matt Dinniman
 genre: Fiction
-isbn: '9798217287178'
+isbn: '9780593820278'
 rating: 4
 readScore: Must Read
 reviewDate: 2026-08-18

@@ -5,9 +5,16 @@ import Bookcase from '../components/Bookcase.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getBookCover } from '../utils/googleBooks';
 
-const books = (await getCollection('books')).sort(
+const reviews = (await getCollection('books')).sort(
 	(first, second) => first.data.reviewDate.getTime() - second.data.reviewDate.getTime(),
+);
+const books = await Promise.all(
+	reviews.map(async (book) => ({
+		...book,
+		coverUrl: await getBookCover(book.data),
+	})),
 );
 const genres = ['Fiction', 'Non-Fiction', 'Fantasy'] as const;
 ---

@@ -3,6 +3,9 @@ import { resolve } from 'node:path';
 import type { CollectionEntry } from 'astro:content';
 
 type Review = CollectionEntry<'books'>['data'];
+export type BookCover = {
+	coverUrl?: string;
+};
 
 type GoogleBook = {
 	volumeInfo?: {
@@ -21,6 +24,8 @@ type CoverCache = Record<string, string>;
 const GOOGLE_BOOKS_API = 'https://www.googleapis.com/books/v1/volumes';
 const OPEN_LIBRARY_COVER_API = 'https://covers.openlibrary.org/b/isbn';
 const CACHE_PATH = resolve(process.cwd(), 'src/data/book-cover-cache.json');
+const resolvedCovers = new Map<string, string | undefined>();
+let coverCachePromise: Promise<CoverCache> | undefined;
 
 function normalizeIsbn(isbn: string | undefined): string | undefined {
 	const normalized = isbn?.replace(/[\s-]/g, '');
@@ -40,6 +45,10 @@ async function readCoverCache(): Promise<CoverCache> {
 		console.warn(`Book cover cache could not be read: ${message}`);
 		return {};
 	}
+}
+
+function getReviewKey(review: Review, isbn: string | undefined): string {
+	return isbn ?? `title:${review.title}|author:${review.author}`;
 }
 
 async function saveCoverCache(cache: CoverCache): Promise<void> {
@@ -91,15 +100,29 @@ async function findGoogleCover(isbn: string): Promise<string | undefined> {
 	}
 }
 
-export async function findGoogleBooksCover(review: Review): Promise<string | undefined> {
+export async function getBookCover(review: Review): Promise<string | undefined> {
 	const isbn = normalizeIsbn(review.isbn);
+	const key = getReviewKey(review, isbn);
+	if (resolvedCovers.has(key)) {
+		return resolvedCovers.get(key);
+	}
+
+	if (review.cover?.src) {
+		resolvedCovers.set(key, review.cover.src);
+		console.warn(`[book cover] title="${review.title}" ISBN="${isbn ?? '(none)'}" source=manual`);
+		return review.cover.src;
+	}
+
 	if (!isbn) {
+		resolvedCovers.set(key, undefined);
 		console.warn(`[book cover] title="${review.title}" ISBN="(none)" source=fallback`);
 		return undefined;
 	}
 
-	const cache = await readCoverCache();
+	coverCachePromise ??= readCoverCache();
+	const cache = await coverCachePromise;
 	if (cache[isbn]) {
+		resolvedCovers.set(key, cache[isbn]);
 		console.warn(`[book cover] title="${review.title}" ISBN="${isbn}" source=cache`);
 		return cache[isbn];
 	}
@@ -108,6 +131,7 @@ export async function findGoogleBooksCover(review: Review): Promise<string | und
 	if (openLibraryCover) {
 		cache[isbn] = openLibraryCover;
 		await saveCoverCache(cache);
+		resolvedCovers.set(key, openLibraryCover);
 		console.warn(`[book cover] title="${review.title}" ISBN="${isbn}" source=open-library`);
 		return openLibraryCover;
 	}
@@ -116,10 +140,12 @@ export async function findGoogleBooksCover(review: Review): Promise<string | und
 	if (googleCover) {
 		cache[isbn] = googleCover;
 		await saveCoverCache(cache);
+		resolvedCovers.set(key, googleCover);
 		console.warn(`[book cover] title="${review.title}" ISBN="${isbn}" source=google-books`);
 		return googleCover;
 	}
 
+	resolvedCovers.set(key, undefined);
 	console.warn(`[book cover] title="${review.title}" ISBN="${isbn}" source=fallback`);
 	return undefined;
 }
