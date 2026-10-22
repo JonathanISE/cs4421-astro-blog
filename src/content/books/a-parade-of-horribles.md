@@ -5,7 +5,7 @@ genre: Fiction
 isbn: '9798217190065'
 rating: 4
 readScore: Must Read
-reviewDate: 2026-08-18
+reviewDate: 2026-10-11
 reviewText: |
   The Apocalypse will be telivised 
 quotes:
