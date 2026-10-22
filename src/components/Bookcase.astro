@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { BookCover } from '../utils/googleBooks';
 
-type Book = CollectionEntry<'books'>;
+type Book = CollectionEntry<'books'> & BookCover;
 
 type Props = {
 	books: Book[];
@@ -21,27 +22,29 @@ const { books, genres } = Astro.props;
 					{shelfBooks.length === 0 ? (
 						<p class="empty-message">A new shelf waiting to be filled</p>
 					) : (
-						shelfBooks.map((book) => (
-							<a
-								class="book-card"
-								href={`/reviews/${book.id}/`}
-								aria-label={`Read the review of ${book.data.title}`}
-							>
-								<span class="book-object">
-									<span class="book-spine">
-										<span class="book-spine-author">{book.data.author}</span>
-										<span>{book.data.title}</span>
+						<div class="shelf-books" aria-label={`${genre} books`}>
+							{shelfBooks.map((book) => (
+								<a
+									class="book-card"
+									href={`/reviews/${book.id}/`}
+									aria-label={`Read the review of ${book.data.title}`}
+								>
+									<span class="book-object">
+										<span class="book-spine">
+											<span class="book-spine-author">{book.data.author}</span>
+											<span>{book.data.title}</span>
+										</span>
+										<span class="book-cover" aria-hidden="true">
+											{book.coverUrl ? (
+												<img src={book.coverUrl} alt={`${book.data.title} book cover`} />
+											) : (
+												<span class="book-cover-fallback">{book.data.title}</span>
+											)}
+										</span>
 									</span>
-									<span class="book-cover" aria-hidden="true">
-										{book.data.cover ? (
-											<img src={book.data.cover.src} alt={`${book.data.title} book cover`} />
-										) : (
-											<span class="book-cover-fallback">{book.data.title}</span>
-										)}
-									</span>
-								</span>
-							</a>
-						))
+								</a>
+							))}
+						</div>
 					)}
 				</div>
 			);
@@ -62,6 +65,12 @@ const { books, genres } = Astro.props;
 		--rail-height: 1.45rem;
 		--sign-hang: 0.4rem;
 		--string-length: 0.4rem;
+		/* Shelf furniture < signs < books < the active book and its cover. */
+		--z-shelf: 1;
+		--z-sign: 4;
+		--z-book: 3;
+		--z-active-book: 5;
+		--z-cover: 6;
 		padding: var(--case-padding-block) var(--case-padding-inline) var(--base-height);
 		border: var(--case-border) solid #693b27;
 		border-radius: 0.35rem;
@@ -87,7 +96,7 @@ const { books, genres } = Astro.props;
 		position: absolute;
 		right: -1.15rem;
 		left: -1.15rem;
-		z-index: 2;
+		z-index: var(--z-shelf);
 		border: 1px solid #60351f;
 		background:
 			linear-gradient(to bottom, rgba(244, 187, 126, 0.55), transparent 0.3rem),
@@ -114,7 +123,7 @@ const { books, genres } = Astro.props;
 	}
 	.shelves {
 		position: relative;
-		z-index: 3;
+		z-index: var(--z-book);
 		display: grid;
 		gap: var(--shelf-gap);
 		width: calc(100% + (var(--case-padding-inline) * 2));
@@ -142,7 +151,7 @@ const { books, genres } = Astro.props;
 			var(--sign-hang)
 		);
 		left: 1rem;
-		z-index: 4;
+		z-index: var(--z-sign);
 		width: min(9rem, 32%);
 	}
 	.genre-sign-holder::before,
@@ -202,18 +211,32 @@ const { books, genres } = Astro.props;
 		font-style: italic;
 		text-align: center;
 	}
-	.book-card {
+	.shelf-books {
 		position: absolute;
-		top: 2.5rem;
-		left: 1rem;
-		z-index: 3;
+		inset: 0;
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+		overflow-x: auto;
+		overflow-y: hidden;
+		padding: 2.5rem 1rem 0;
+		box-sizing: border-box;
+		scrollbar-width: thin;
+	}
+	.book-card {
+		position: relative;
+		z-index: var(--z-book);
 		display: block;
+		flex: 0 0 auto;
 		width: 6.25rem;
 		height: calc(var(--shelf-space) - 3rem);
 		color: #f4e6cd;
 		text-decoration: none;
 		perspective: 42rem;
 	}
+	.book-card:hover,
+	.book-card:focus-visible,
+	.book-card.is-opening { z-index: var(--z-active-book); }
 	.book-object {
 		position: relative;
 		width: 100%;
@@ -289,6 +312,7 @@ const { books, genres } = Astro.props;
 		position: absolute;
 		top: 0;
 		left: calc(100% + 0.45rem);
+		z-index: var(--z-cover);
 		display: block;
 		width: clamp(8rem, 17vw, 11rem);
 		height: 100%;
@@ -323,6 +347,7 @@ const { books, genres } = Astro.props;
 		.bookcase::after { right: -0.7rem; left: -0.7rem; }
 		.book-card { width: 5.75rem; }
 		.book-cover { width: 8rem; }
+		.shelf-books { gap: 0.5rem; }
 	}
 </style>
 
