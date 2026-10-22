@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { BookCover } from '../utils/googleBooks';
 
-type Book = CollectionEntry<'books'>;
+type Book = CollectionEntry<'books'> & BookCover;
 
 type Props = {
 	books: Book[];
@@ -34,8 +35,8 @@ const { books, genres } = Astro.props;
 											<span>{book.data.title}</span>
 										</span>
 										<span class="book-cover" aria-hidden="true">
-											{book.data.cover ? (
-												<img src={book.data.cover.src} alt={`${book.data.title} book cover`} />
+											{book.coverUrl ? (
+												<img src={book.coverUrl} alt={`${book.data.title} book cover`} />
 											) : (
 												<span class="book-cover-fallback">{book.data.title}</span>
 											)}

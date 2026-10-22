@@ -2,10 +2,10 @@
 title: The Eye of the Bedlam Bride
 author: Matt Dinniman
 genre: Fiction
-isbn: '9798217511976'
+isbn: '9780593956014'
 rating: 4
 readScore: Must Read
-reviewDate: 2026-08-18
+reviewDate: 2026-09-20
 reviewText: |
   The Apocalypse will be telivised 
 quotes:
