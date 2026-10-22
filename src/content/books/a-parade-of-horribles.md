@@ -2,7 +2,7 @@
 title: A Parade of Horribles
 author: Matt Dinniman
 genre: Fiction
-isbn: '9780241829936'
+isbn: '9798217190065'
 rating: 4
 readScore: Must Read
 reviewDate: 2026-08-18
