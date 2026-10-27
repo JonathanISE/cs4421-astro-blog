@@ -29,6 +29,8 @@ const books = defineCollection({
 			cover: image().optional(),
 			rating: z.number().min(0).max(5),
 			readScore: z.enum(['Skip', 'If you have time', 'Worth Reading', 'Must Read']),
+			// One short sentence summing up the book, shown in the Logbook and on the review page.
+			verdict: z.string().min(1).max(160),
 			reviewText: z.string().min(1),
 			reviewDate: z.coerce.date(),
 			quotes: z.array(z.string()).max(10).optional(),
