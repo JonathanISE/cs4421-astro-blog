@@ -1,7 +1,7 @@
 ---
 title: 'Why Nations Fail'
 description: 'A review of Why Nations Fail: The Origins of Power, Prosperity, and Poverty by Daron Acemoglu and James A. Robinson.'
-author: 'alex-morgan'
+author: 'jonathan-murphy'
 pubDate: 'Mar 20 2012'
 heroImage: '../../assets/why-nations-fail.jpg'
 ---
