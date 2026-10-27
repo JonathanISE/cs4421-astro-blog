@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <clipPath id="frame"><circle cx="100" cy="100" r="96"/></clipPath>
+  </defs>
+  <circle cx="100" cy="100" r="96" fill="#d8c09c" stroke="#bd8a35" stroke-width="6"/>
+  <g clip-path="url(#frame)" fill="#3e241b">
+    <!-- Shoulders in a coat -->
+    <path d="M24 204 Q26 156 74 142 L126 142 Q174 156 176 204 Z"/>
+    <!-- Neck and head -->
+    <rect x="88" y="116" width="24" height="30"/>
+    <ellipse cx="100" cy="98" rx="29" ry="32"/>
+    <!-- Coat collar and lapels, picked out in the background colour -->
+    <path d="M80 142 L100 180 L120 142 M70 148 Q80 150 90 162 M130 148 Q120 150 110 162" fill="none" stroke="#d8c09c" stroke-width="4" stroke-linecap="round"/>
+    <!-- Tricorn hat seen from the front: low crown, brim turned up at the sides with a point at the front -->
+    <path d="M76 66 Q78 46 100 44 Q122 46 124 66 Z" stroke="#d8c09c" stroke-width="3"/>
+    <path d="M42 36 Q60 64 100 62 Q140 64 158 36 Q160 74 128 86 Q112 90 100 102 Q88 90 72 86 Q40 74 42 36 Z" stroke="#d8c09c" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+</svg>

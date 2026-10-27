@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection, getEntry } from 'astro:content';
-import captainSilhouette from '../assets/captain-silhouette.svg';
+import captainHeadshot from '../assets/captain-headshot.svg';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -32,7 +32,7 @@ const logStats = summariseLog((await getCollection('books')).map((book) => book.
 					#e8d4b8;
 			}
 			main {
-				width: min(100% - 2rem, 860px);
+				width: min(100% - 2rem, 700px);
 				box-sizing: border-box;
 				margin: 0 auto;
 				padding: clamp(3rem, 8vw, 6rem) 0 clamp(4rem, 10vw, 7rem);
@@ -46,7 +46,7 @@ const logStats = summariseLog((await getCollection('books')).map((book) => book.
 				text-align: center;
 			}
 			.captain {
-				width: clamp(9rem, 40vw, 13rem);
+				width: clamp(8.5rem, 40vw, 11.5rem);
 				height: auto;
 			}
 			h1 {
@@ -106,18 +106,6 @@ const logStats = summariseLog((await getCollection('books')).map((book) => book.
 				color: #e8c36d;
 				font-size: 0.85rem;
 			}
-			@media (min-width: 640px) {
-				.quarters {
-					grid-template-columns: auto 1fr;
-					align-items: center;
-					justify-items: start;
-					gap: clamp(2rem, 5vw, 3.5rem);
-					text-align: left;
-				}
-				.log-stats {
-					justify-content: flex-start;
-				}
-			}
 		</style>
 	</head>
 	<body>
@@ -126,8 +114,8 @@ const logStats = summariseLog((await getCollection('books')).map((book) => book.
 			<section class="quarters" aria-labelledby="about-title">
 				<Image
 					class="captain"
-					src={captainSilhouette}
-					alt="Silhouette of a pirate captain in a tricorn hat and long coat, seen from the side, with a sword at the hip."
+					src={captainHeadshot}
+					alt="Silhouette profile image of a ship's captain in a tricorn hat and coat."
 				/>
 				<div>
 					<h1 id="about-title">The captain's quarters</h1>
