@@ -6,16 +6,19 @@ Books are content entries in [`src/content/books/`](../src/content/books/). To a
 2. Copy the frontmatter structure from [the placeholder review](../src/content/books/why-nations-fail.md) and provide:
    `title`, `author`, `genre`, `rating`, `readScore`, `reviewDate`, and `reviewText`.
 3. Set `readScore` to exactly one of: `Skip`, `If you have time`, `Worth Reading`, or `Must Read`.
-4. Add an `isbn` when possible. The build uses it to look up the cover from Google Books.
-   If there is no ISBN, it searches by title and author instead.
+4. Add an `isbn` when possible. The build first checks the committed ISBN-keyed cover cache,
+   then tries Open Library by ISBN. If `GOOGLE_BOOKS_API_KEY` is configured, it tries Google
+   Books next. Successful results are written to [`src/data/book-cover-cache.json`](../src/data/book-cover-cache.json)
+   so later builds do not repeat the lookup.
 5. A local `cover` image under `src/assets/` is optional and overrides the API result.
    If neither source provides a cover, the review displays a title-and-author placeholder.
 6. Add up to 10 strings under `quotes` and/or a `favouriteCharacter` when those details apply.
 7. Run `npm run check` or `npm run build`. The home page discovers the new entry automatically and sorts reviews by `reviewDate`, oldest first.
 
-The optional `GOOGLE_BOOKS_API` environment variable can hold a Google Books API key.
-The deployment workflow reads it from the GitHub Actions `GOOGLE_BOOKS_API` secret; the key
-is never stored in review files or source code.
+The optional `GOOGLE_BOOKS_API_KEY` environment variable can hold a Google Books API key.
+The deployment workflow reads it from the GitHub Actions `GOOGLE_BOOKS_API_KEY` secret.
+Review cover lookups run sequentially during the build, and a missing cover never fails the build.
+The key is never stored in review files or source code.
 
 Valid genres are `Fiction`, `Non-Fiction`, and `Fantasy`. Each review is rendered at
 `/reviews/<filename>/` by the shared [`BookReview`](../src/layouts/BookReview.astro) layout.
