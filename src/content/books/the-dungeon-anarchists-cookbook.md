@@ -5,6 +5,7 @@ genre: Fiction
 isbn: '9782487700178'
 rating: 4
 readScore: Must Read
+verdict: Verdict coming soon
 reviewDate: 2026-08-24
 reviewText: |
   The Apocalypse will be telivised 

@@ -5,6 +5,7 @@ genre: Fiction
 isbn: '9780593955970'
 rating: 4
 readScore: Must Read
+verdict: Verdict coming soon
 reviewDate: 2026-08-30
 reviewText: |
   The Apocalypse will be telivised 

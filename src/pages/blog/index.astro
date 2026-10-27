@@ -1,87 +1,185 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
+import { groupByYear } from '../../utils/logbook';
+import { getLogbookEntries } from '../../utils/logbookEntries';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const years = groupByYear(await getLogbookEntries());
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title={`Logbook | ${SITE_TITLE}`}
+			description="A dated journal of every book review and post in the Captain's Log."
+		/>
 		<style>
+			:global(body) {
+				background:
+					radial-gradient(circle at 50% 0, rgba(255, 248, 232, 0.7), transparent 40rem),
+					#e8d4b8;
+			}
 			main {
-				width: 960px;
+				width: min(100% - 2rem, 760px);
+				box-sizing: border-box;
+				margin: 0 auto;
+				padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(4rem, 9vw, 7rem);
+				color: #3c2a20;
+				font-family: Georgia, 'Times New Roman', serif;
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
+			.intro {
+				margin-bottom: 3rem;
 				text-align: center;
 			}
-			ul li:first-child img {
-				width: 100%;
+			.intro h1 {
+				margin: 0 0 0.75rem;
+				color: #3e241b;
+				font-family: Cinzel, 'Trajan Pro', Georgia, serif;
+				font-size: clamp(2.3rem, 6vw, 3.8rem);
+				font-variant: small-caps;
 			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
+			.intro p {
+				margin: 0;
+				color: #73584c;
 			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
+			.empty-message {
+				color: #73584c;
+				font-style: italic;
+				text-align: center;
 			}
-			ul li a {
+			.year + .year {
+				margin-top: 3rem;
+			}
+			.year h2 {
+				margin: 0 0 1.5rem;
+				padding-bottom: 0.4rem;
+				border-bottom: 2px solid #bd8a35;
+				color: #70452c;
+				font-family: Cinzel, 'Trajan Pro', Georgia, serif;
+				font-size: 1.8rem;
+				letter-spacing: 0.08em;
+			}
+			.entries {
+				display: grid;
+				gap: 1.25rem;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.entry {
+				display: grid;
+				grid-template-columns: 6rem 1fr;
+				gap: 1.25rem;
+				align-items: start;
+				padding: 1.1rem 1.25rem;
+				border: 1px solid #d2b486;
+				border-left: 4px solid #c98b45;
+				border-radius: 0.25rem;
+				background: #f8f0df;
+				box-shadow: 0 0.4rem 1rem rgba(91, 55, 29, 0.1);
+			}
+			.entry.post {
+				grid-template-columns: 1fr;
+				border-left-color: #28533d;
+			}
+			.cover {
 				display: block;
+				aspect-ratio: 2 / 3;
+				overflow: hidden;
+				border: 3px solid #c49a64;
+				background: #d8c09c;
 			}
-			.title {
+			.cover img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.cover-fallback {
+				display: grid;
+				height: 100%;
+				place-items: center;
+				padding: 0.4rem;
+				box-sizing: border-box;
+				color: #4a2d1d;
+				font-size: 0.75rem;
+				text-align: center;
+			}
+			.entry-date {
 				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+				color: #8b7040;
+				font-size: 0.85rem;
+				letter-spacing: 0.04em;
 			}
-			.date {
+			.entry h3 {
+				margin: 0.2rem 0 0.15rem;
+				color: #3e241b;
+				font-size: 1.3rem;
+				line-height: 1.25;
+			}
+			.entry-kind {
 				margin: 0;
-				color: rgb(var(--gray));
+				color: #795943;
+				font-size: 0.9rem;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+			.verdict,
+			.description {
+				margin: 0.6rem 0 0;
+				color: #5b4030;
+				font-size: 1rem;
+				line-height: 1.5;
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+			.verdict {
+				font-style: italic;
 			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
+			.entry-footer {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: 0.75rem;
+				margin-top: 0.85rem;
+			}
+			.read-score {
+				padding: 0.2rem 0.6rem;
+				border: 1px solid currentColor;
+				border-radius: 999px;
+				font-size: 0.8rem;
+				font-weight: 700;
+				letter-spacing: 0.04em;
+			}
+			.read-score[data-score='Skip'] {
+				color: #80685a;
+			}
+			.read-score[data-score='If you have time'] {
+				color: #8b7040;
+			}
+			.read-score[data-score='Worth Reading'] {
+				color: #a76527;
+			}
+			.read-score[data-score='Must Read'] {
+				color: #8f4b2f;
+			}
+			.read-more {
+				color: #70452c;
+				font-size: 0.95rem;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.read-more:hover,
+			.read-more:focus-visible {
+				color: #a76527;
+				text-decoration: underline;
+			}
+			@media (max-width: 480px) {
+				.entry {
+					grid-template-columns: 4.5rem 1fr;
+					gap: 0.9rem;
+					padding: 0.9rem;
 				}
 			}
 		</style>
@@ -89,26 +187,65 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-			<section aria-labelledby="logbook-title">
+			<section class="intro" aria-labelledby="logbook-title">
 				<h1 id="logbook-title">The logbook</h1>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				<p>Every review and note, written down as the voyage goes on.</p>
 			</section>
+			{years.length === 0 && <p class="empty-message">No entries yet. The ink is still drying.</p>}
+			{
+				years.map(({ year, entries }) => (
+					<section class="year" aria-labelledby={`year-${year}`}>
+						<h2 id={`year-${year}`}>{year}</h2>
+						<ol class="entries">
+							{entries.map((entry) =>
+								entry.kind === 'review' ? (
+									<li class="entry review">
+										<a class="cover" href={entry.href} tabindex="-1" aria-hidden="true">
+											{entry.coverUrl ? (
+												<img src={entry.coverUrl} alt="" loading="lazy" width="96" height="144" />
+											) : (
+												<span class="cover-fallback">{entry.title}</span>
+											)}
+										</a>
+										<div>
+											<p class="entry-date">
+												<FormattedDate date={entry.date} />
+											</p>
+											<h3>{entry.title}</h3>
+											<p class="entry-kind">Review · by {entry.author}</p>
+											<p class="verdict">{entry.verdict}</p>
+											<div class="entry-footer">
+												<span class="read-score" data-score={entry.readScore}>
+													{entry.readScore}
+												</span>
+												<a class="read-more" href={entry.href}>
+													Read the full review<span class="sr-only"> of {entry.title}</span> →
+												</a>
+											</div>
+										</div>
+									</li>
+								) : (
+									<li class="entry post">
+										<div>
+											<p class="entry-date">
+												<FormattedDate date={entry.date} />
+											</p>
+											<h3>{entry.title}</h3>
+											<p class="entry-kind">Note</p>
+											<p class="description">{entry.description}</p>
+											<div class="entry-footer">
+												<a class="read-more" href={entry.href}>
+													Read the post<span class="sr-only"> {entry.title}</span> →
+												</a>
+											</div>
+										</div>
+									</li>
+								),
+							)}
+						</ol>
+					</section>
+				))
+			}
 		</main>
 		<Footer />
 	</body>
