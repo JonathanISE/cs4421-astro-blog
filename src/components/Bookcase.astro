@@ -232,6 +232,7 @@ const { books, genres } = Astro.props;
 		height: calc(var(--shelf-space) - 3rem);
 		color: #f4e6cd;
 		text-decoration: none;
+		cursor: pointer;
 		perspective: 42rem;
 	}
 	.book-card:hover,
@@ -243,6 +244,12 @@ const { books, genres } = Astro.props;
 		height: 100%;
 		transform-style: preserve-3d;
 		transition: transform 0.55s cubic-bezier(0.2, 0.85, 0.25, 1.2);
+		/*
+		 * Only the link's own box, which matches the resting spine, takes the mouse.
+		 * Otherwise the tilted spine and the invisible cover beside it count as
+		 * hovering this book, and a shown cover blocks the books to its right.
+		 */
+		pointer-events: none;
 	}
 	.book-card:hover .book-object,
 	.book-card:focus-visible .book-object,
@@ -257,7 +264,6 @@ const { books, genres } = Astro.props;
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
-		cursor: pointer;
 		overflow: hidden;
 		border: 1px solid #bd8b2c;
 		border-radius: 0.15rem 0.3rem 0.3rem 0.15rem;

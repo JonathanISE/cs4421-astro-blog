@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
 type Review = CollectionEntry<'books'>['data'];
@@ -12,7 +13,9 @@ const {
 	cover,
 	rating,
 	readScore,
+	verdict,
 	reviewText,
+	reviewDate,
 	quotes,
 	favouriteCharacter,
 } = Astro.props as Review;
@@ -93,10 +96,25 @@ const coverUrl = cover?.src ?? googleCover;
 				text-align: center;
 			}
 			.review-page .author {
-				margin: 0 0 2rem;
+				margin: 0 0 0.5rem;
 				color: #795943;
 				font-family: Georgia, serif;
 				font-size: 1.2rem;
+			}
+			.review-page .review-date {
+				margin: 0 0 2rem;
+				color: #8b7040;
+				font-size: 0.95rem;
+				font-style: italic;
+			}
+			.review-page .verdict {
+				margin: 1.25rem 0 0;
+				padding: 0.75rem 1rem;
+				border-left: 3px solid #c98b45;
+				background: #f1e2c8;
+				color: #5b4030;
+				font-size: 1.05rem;
+				font-style: italic;
 			}
 			.review-page .scores {
 				display: grid;
@@ -214,7 +232,8 @@ const coverUrl = cover?.src ?? googleCover;
 				.review-page h1 {
 					text-align: center;
 				}
-				.review-page .author {
+				.review-page .author,
+				.review-page .review-date {
 					text-align: center;
 				}
 				.review-page .scores {
@@ -231,6 +250,7 @@ const coverUrl = cover?.src ?? googleCover;
 					<div class="review-intro">
 						<h1>{title}</h1>
 						<p class="author">by {author}</p>
+						<p class="review-date">Reviewed on <FormattedDate date={reviewDate} /></p>
 						<div class="scores" aria-label="Book scores">
 							<div class="score">
 								<span class="score-label">Rating</span>
@@ -241,6 +261,7 @@ const coverUrl = cover?.src ?? googleCover;
 								<span class="score-value read-score" data-score={readScore}>{readScore}</span>
 							</div>
 						</div>
+						<p class="verdict">{verdict}</p>
 					</div>
 					<div class="cover">
 						{coverUrl ? (
