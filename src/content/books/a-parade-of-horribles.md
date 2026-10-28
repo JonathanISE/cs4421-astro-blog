@@ -9,6 +9,12 @@ verdict: The most emotional indepth exploration of the characters and their moti
 reviewDate: 2026-10-11
 reviewText: |
   The Apocalypse will be telivised 
+  Carl and Donut take part in a death race, fighting to finish first in their bracket, while the AI finally tells the story of how the original AIs came to be and what the true nine-tier attack really was. I won't spoil any of it, but it changes how you see the whole series.
+
+  As the verdict says, this is the most emotional, in-depth look at the characters and their motives so far. My favourite character, the System AI, is the heart of it this time: we finally get to understand where it came from, and it's still capable of rewards as blunt as "Reward; Fuck off." The race keeps the pace high, but the best moments are the quiet ones, like the reminder that "Sometimes we don't need to know someone's full life story to understand them." It's also the series at its angriest about power and money, and the lines about hitting the elites financially and the war on drugs are some of the sharpest Dinniman has written. And when the crawlers refuse to be divided ("Don't. You. Realize?"), it's genuinely stirring.
+
+  A lot of the book's power depends on everything that came before, so it isn't the place to start, and the history lesson slows the race down in places. For anyone who has made it this far, though, it's the most rewarding book in the series yet and an absolute Must Read.
+
 quotes:
   - "God dammit donut"
   - "If we worry about things we can’t control, we start to ruin the things we can control."
@@ -23,8 +29,3 @@ quotes:
 favouriteCharacter: System AI
 ---
 
-Carl and Donut take part in a death race, fighting to finish first in their bracket, while the AI finally tells the story of how the original AIs came to be and what the true nine-tier attack really was. I won't spoil any of it, but it changes how you see the whole series.
-
-As the verdict says, this is the most emotional, in-depth look at the characters and their motives so far. My favourite character, the System AI, is the heart of it this time: we finally get to understand where it came from, and it's still capable of rewards as blunt as "Reward; Fuck off." The race keeps the pace high, but the best moments are the quiet ones, like the reminder that "Sometimes we don't need to know someone's full life story to understand them." It's also the series at its angriest about power and money, and the lines about hitting the elites financially and the war on drugs are some of the sharpest Dinniman has written. And when the crawlers refuse to be divided ("Don't. You. Realize?"), it's genuinely stirring.
-
-A lot of the book's power depends on everything that came before, so it isn't the place to start, and the history lesson slows the race down in places. For anyone who has made it this far, though, it's the most rewarding book in the series yet and an absolute Must Read.

@@ -9,6 +9,12 @@ verdict: A full on slaughterfest from start to finish
 reviewDate: 2026-09-9
 reviewText: |
   The Apocalypse will be telivised 
+  The top crawlers are invited to a gala that's really a death trap, and when it's over the floor erupts into a four-way fight to the death between the crawlers, the hunters, the Queen and the god Dwata. As the verdict says, it's a full-on slaughterfest from start to finish.
+
+  What makes it more than carnage is the heart underneath. This is Donut's book, and she's my favourite character in it: the moment she finally says what she's been carrying about Miss Beatrice, ending with "I thought since I loved you, that meant you loved me," is one of the most painful scenes in the series. Carl's line that trauma is "an explosion with your heart at the center" sums up the whole book. There's real loss here too, and Miriam's last words for her "beautiful boy" stayed with me for days. Somehow it's still very funny, from a species with a strong dislike for people named Josh and ska music to "the universe's four lubricants. Blood, tears, taxes, and lawyers."
+
+  With so many sides fighting at once, the final battle can be hard to keep track of, and the gore is relentless. But if you've come this far with Carl and Donut, this is where the series shows how much it can make you feel, and it's a Must Read.
+
 quotes:
   - "God dammit donut"
   - “Trauma does that, I thought. It’s an explosion with your heart at the center. It changes everything all at once.”
@@ -23,8 +29,3 @@ quotes:
 favouriteCharacter: Donut
 ---
 
-The top crawlers are invited to a gala that's really a death trap, and when it's over the floor erupts into a four-way fight to the death between the crawlers, the hunters, the Queen and the god Dwata. As the verdict says, it's a full-on slaughterfest from start to finish.
-
-What makes it more than carnage is the heart underneath. This is Donut's book, and she's my favourite character in it: the moment she finally says what she's been carrying about Miss Beatrice, ending with "I thought since I loved you, that meant you loved me," is one of the most painful scenes in the series. Carl's line that trauma is "an explosion with your heart at the center" sums up the whole book. There's real loss here too, and Miriam's last words for her "beautiful boy" stayed with me for days. Somehow it's still very funny, from a species with a strong dislike for people named Josh and ska music to "the universe's four lubricants. Blood, tears, taxes, and lawyers."
-
-With so many sides fighting at once, the final battle can be hard to keep track of, and the gore is relentless. But if you've come this far with Carl and Donut, this is where the series shows how much it can make you feel, and it's a Must Read.
