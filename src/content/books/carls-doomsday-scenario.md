@@ -23,3 +23,9 @@ quotes:
 
 favouriteCharacter: Carl
 ---
+
+The second book picks up with Carl and Donut deeper in the dungeon, with a bit more power, a lot more attention from the viewers, and a growing reputation for blowing things up. As the verdict says, things are about to go BOOM.
+
+Carl is my favourite character here, and this is where he really starts to show what's underneath the jokes: he's holding himself together through sheer stubbornness, and "You will not break me" captures that better than anything I could write. The quieter memories of his childhood, like planting trees with his mum, give the book a surprising amount of heart. Donut is as dramatic as ever ("Mama needs a night off"), and "Mongo is appalled" quickly became one of my favourite running jokes. Carl's growing talent for explosives is the highlight, and when his plans come together, the payoff is huge.
+
+That said, it felt more like a middle chapter than the first book did. A lot of time goes into the game's systems and set-up, and the pacing sags in places before the big moments arrive. The crude humour (and the clowns; I really did start to hate clowns) won't win everyone over either. If you loved the first book, this one is well worth reading to keep the journey going, even if it isn't the series at its very best.

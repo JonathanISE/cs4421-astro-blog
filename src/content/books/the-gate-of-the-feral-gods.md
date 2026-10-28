@@ -22,3 +22,9 @@ quotes:
   - “As always, safety came last.”
 favouriteCharacter: System AI
 ---
+
+This time Carl and Donut find themselves trapped in a bubble world with only a handful of other crawlers, and the whole floor becomes a puzzle of how to break out. True to the verdict, chaos is unleashed on everything around them, and as always, safety comes last.
+
+The smaller cast gives the book a different, more claustrophobic feel, and I liked seeing how Carl and Donut cope when the usual crowd isn't there to lean on. It's also the book where Carl begins worshipping a god, which opens up a whole new side of the dungeon's politics. My favourite character, the System AI, is at its most savage here; its takedown of a would-be author's "space vampire and minotaur romance" had me in stitches. Donut is wonderful too, whether she's mourning the haunted vase she never got to knock off the shelf or yelling that she doesn't have thumbs.
+
+Being boxed in cuts both ways, though: with fewer characters and a lot of time spent on the bubble itself, the pacing felt slower than the books on either side. The god storyline is mostly set-up for later, so it doesn't fully pay off here. It's well worth reading for the laughs and for where it takes the story next, even if it isn't one of my favourites in the series.
